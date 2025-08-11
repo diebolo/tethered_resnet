@@ -1,0 +1,244 @@
+➜ python3 sparse.py
+2025-08-07 14:58:16.259789: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-08-07 14:58:17.103505: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+Input features shape: (20000, 7)
+Target errors shape: (20000, 3)
+Feature names: ['tether_x', 'tether_y', 'tether_z', 'platform_azimuth', 'platform_elevation', 'drone_elevation', 'length']
+
+Training set: X=(12000, 7), Y=(12000, 3)
+Validation set: X=(4000, 7), Y=(4000, 3)
+Test set: X=(4000, 7), Y=(4000, 3)
+2025-08-07 14:58:21.006141: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1928] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 2580 MB memory:  -> device: 0, name: Quadro P2000, pci bus id: 0000:01:00.0, compute capability: 6.1
+
+Using 100 inducing points
+Starting Sparse GP training with validation monitoring...
+
+==================================================
+USING SEPARATE GPS APPROACH
+==================================================
+
+Training GP for error component 1/3 (x-direction)
+2025-08-07 14:58:31.632339: I tensorflow/core/util/cuda_solvers.cc:178] Creating GpuSolver handles for stream 0x5622985c6010
+Epoch    0 - Train Loss: 23027.2624, Val Loss: 7603.2987
+Epoch   50 - Train Loss: 14652.9836, Val Loss: 4908.5733
+Epoch  100 - Train Loss: 11513.0930, Val Loss: 3891.1655
+Epoch  150 - Train Loss: 9154.8182, Val Loss: 3146.7385
+Epoch  200 - Train Loss: 7311.6929, Val Loss: 2568.4847
+Epoch  250 - Train Loss: 5835.3939, Val Loss: 2118.1502
+Epoch  300 - Train Loss: 4578.6016, Val Loss: 1755.6560
+Epoch  350 - Train Loss: 3650.3989, Val Loss: 1490.0377
+Epoch  400 - Train Loss: 2897.7412, Val Loss: 1294.5692
+Epoch  450 - Train Loss: 2327.9192, Val Loss: 1135.2512
+Final Train Loss: 1947.0162
+Final Val Loss: 1035.3438
+Final lengthscales: [0.98222108 2.4151271  1.94805889 0.93919749 0.67212079 2.88305319
+ 3.4706794 ]
+Final variance: 2.5983
+Final noise: 0.0768
+
+Training GP for error component 2/3 (y-direction)
+Epoch    0 - Train Loss: 23027.2624, Val Loss: 7589.1120
+Epoch   50 - Train Loss: 14437.2216, Val Loss: 4880.0430
+Epoch  100 - Train Loss: 12145.1186, Val Loss: 4171.6249
+Epoch  150 - Train Loss: 10559.2848, Val Loss: 3683.0477
+Epoch  200 - Train Loss: 9489.9595, Val Loss: 3362.3557
+Epoch  250 - Train Loss: 8834.9578, Val Loss: 3182.7929
+Epoch  300 - Train Loss: 8386.6502, Val Loss: 3075.4741
+Epoch  350 - Train Loss: 7975.7325, Val Loss: 2976.5278
+Epoch  400 - Train Loss: 7604.2869, Val Loss: 2890.1519
+Epoch  450 - Train Loss: 7193.3885, Val Loss: 2807.7182
+Final Train Loss: 6806.0722
+Final Val Loss: 2694.6096
+Final lengthscales: [1.44680975 1.2381206  1.17493343 0.99682261 0.67439597 1.91166223
+ 3.09571598]
+Final variance: 2.2198
+Final noise: 0.1736
+
+Training GP for error component 3/3 (z-direction)
+Epoch    0 - Train Loss: 23027.2624, Val Loss: 7473.0056
+Epoch   50 - Train Loss: 13409.0685, Val Loss: 4458.2162
+Epoch  100 - Train Loss: 10259.3403, Val Loss: 3451.5828
+Epoch  150 - Train Loss: 7791.6214, Val Loss: 2643.1335
+Epoch  200 - Train Loss: 5814.5882, Val Loss: 1990.1566
+Epoch  250 - Train Loss: 4471.0024, Val Loss: 1552.1065
+Epoch  300 - Train Loss: 3617.9271, Val Loss: 1300.2258
+Epoch  350 - Train Loss: 2851.5420, Val Loss: 1096.9943
+Epoch  400 - Train Loss: 2216.0112, Val Loss: 953.2314
+Epoch  450 - Train Loss: 1806.3593, Val Loss: 875.2012
+Final Train Loss: 1409.6792
+Final Val Loss: 776.9758
+Final lengthscales: [2.14129239 2.42370474 0.79493636 3.93649505 1.31616367 1.01933271
+ 3.6849783 ]
+Final variance: 2.3200
+Final noise: 0.0725
+
+============================================================
+OVERFITTING ANALYSIS
+============================================================
+
+X-Component GP:
+  Final train loss: 1947.0162
+  Final val loss:   1035.3438
+  Train-Val gap:    -911.6723
+  Train trend (last 20%): -9.603283
+  Val trend (last 20%):   -2.618438
+  ℹ️  Val loss < train loss (possible underfitting or noisy validation)
+  📈 Validation loss still decreasing
+
+Y-Component GP:
+  Final train loss: 6806.0722
+  Final val loss:   2694.6096
+  Train-Val gap:    -4111.4626
+  Train trend (last 20%): -8.062775
+  Val trend (last 20%):   -1.975175
+  ℹ️  Val loss < train loss (possible underfitting or noisy validation)
+  📈 Validation loss still decreasing
+
+Z-Component GP:
+  Final train loss: 1409.6792
+  Final val loss:   776.9758
+  Train-Val gap:    -632.7034
+  Train trend (last 20%): -8.144768
+  Val trend (last 20%):   -1.780360
+  ℹ️  Val loss < train loss (possible underfitting or noisy validation)
+  📈 Validation loss still decreasing
+
+==================================================
+EVALUATION RESULTS
+==================================================
+Overall RMSE: 0.013571
+Overall MAE:  0.008596
+
+Per-dimension results:
+x-error - RMSE: 0.012223, MAE: 0.008155
+y-error - RMSE: 0.018431, MAE: 0.012166
+z-error - RMSE: 0.007963, MAE: 0.005468
+
+Mean prediction uncertainty: 0.003929
+Std of prediction uncertainty: 0.003188
+
+Training completed! Final model performance:
+Overall RMSE: 0.013571
+
+===============================================================================
+
+
+Input features shape: (80000, 7)
+Target errors shape: (80000, 3)
+Feature names: ['tether_x', 'tether_y', 'tether_z', 'platform_azimuth', 'platform_elevation', 'drone_elevation', 'length']
+
+Training set: X=(48000, 7), Y=(48000, 3)
+Validation set: X=(16000, 7), Y=(16000, 3)
+Test set: X=(16000, 7), Y=(16000, 3)
+2025-08-07 15:06:14.223624: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1928] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 2626 MB memory:  -> device: 0, name: Quadro P2000, pci bus id: 0000:01:00.0, compute capability: 6.1
+
+Using 100 inducing points
+Starting Sparse GP training with validation monitoring...
+
+==================================================
+USING SEPARATE GPS APPROACH
+==================================================
+
+Training GP for error component 1/3 (x-direction)
+2025-08-07 15:06:28.761194: I tensorflow/core/util/cuda_solvers.cc:178] Creating GpuSolver handles for stream 0x5a714d78d3a0
+Epoch    0 - Train Loss: 92109.0496, Val Loss: 30892.0306
+Epoch   50 - Train Loss: 61577.9078, Val Loss: 21225.5072
+Epoch  100 - Train Loss: 55521.8195, Val Loss: 19497.5055
+Epoch  150 - Train Loss: 51763.9540, Val Loss: 18586.2229
+Epoch  200 - Train Loss: 49469.7830, Val Loss: 18089.4478
+Epoch  250 - Train Loss: 48224.5383, Val Loss: 17835.1692
+Epoch  300 - Train Loss: 47512.4210, Val Loss: 17686.2096
+Epoch  350 - Train Loss: 47023.4992, Val Loss: 17585.7884
+Epoch  400 - Train Loss: 46667.5206, Val Loss: 17511.1641
+Epoch  450 - Train Loss: 46372.5189, Val Loss: 17458.3515
+Final Train Loss: 46142.4028
+Final Val Loss: 17420.5353
+Final lengthscales: [1.14295433 2.3703857  1.23467666 3.40021866 0.90961246 1.62391224
+ 1.91752607]
+Final variance: 1.3768
+Final noise: 0.3945
+
+Training GP for error component 2/3 (y-direction)
+Epoch    0 - Train Loss: 92109.0496, Val Loss: 32012.6340
+Epoch   50 - Train Loss: 65543.9109, Val Loss: 23421.8342
+Epoch  100 - Train Loss: 62403.7350, Val Loss: 22739.0368
+Epoch  150 - Train Loss: 60689.3668, Val Loss: 22552.4579
+Epoch  200 - Train Loss: 59514.4349, Val Loss: 22422.3813
+Epoch  250 - Train Loss: 58761.5286, Val Loss: 22340.4361
+Epoch  300 - Train Loss: 58290.3637, Val Loss: 22290.7845
+Epoch  350 - Train Loss: 57975.5192, Val Loss: 22263.6410
+Epoch  400 - Train Loss: 57763.3923, Val Loss: 22249.6631
+Epoch  450 - Train Loss: 57571.3269, Val Loss: 22232.7270
+Final Train Loss: 57428.2832
+Final Val Loss: 22223.6624
+Final lengthscales: [1.90004776 1.59810148 1.79474677 1.96637721 0.84102225 1.60714862
+ 2.3819401 ]
+Final variance: 1.2471
+Final noise: 0.6306
+
+Training GP for error component 3/3 (z-direction)
+Epoch    0 - Train Loss: 92109.0496, Val Loss: 32112.3353
+Epoch   50 - Train Loss: 64157.4759, Val Loss: 23117.1495
+Epoch  100 - Train Loss: 60761.5910, Val Loss: 22417.4593
+Epoch  150 - Train Loss: 58572.9162, Val Loss: 22117.7447
+Epoch  200 - Train Loss: 57000.0591, Val Loss: 21872.8987
+Epoch  250 - Train Loss: 56195.6654, Val Loss: 21769.1382
+Epoch  300 - Train Loss: 55785.8509, Val Loss: 21717.1765
+Epoch  350 - Train Loss: 55551.2080, Val Loss: 21680.4995
+Epoch  400 - Train Loss: 55381.1209, Val Loss: 21671.3077
+Epoch  450 - Train Loss: 55204.7884, Val Loss: 21656.9166
+Final Train Loss: 55055.5194
+Final Val Loss: 21626.6911
+Final lengthscales: [2.30140748 2.18710651 1.39285666 2.94237328 0.82687637 1.03322073
+ 2.19965921]
+Final variance: 1.1600
+Final noise: 0.5723
+
+============================================================
+OVERFITTING ANALYSIS
+============================================================
+
+X-Component GP:
+  Final train loss: 46142.4028
+  Final val loss:   17420.5353
+  Train-Val gap:    -28721.8675
+  Train trend (last 20%): -5.304221
+  Val trend (last 20%):   -0.915442
+  ℹ️  Val loss < train loss (possible underfitting or noisy validation)
+  📈 Validation loss still decreasing
+
+Y-Component GP:
+  Final train loss: 57428.2832
+  Final val loss:   22223.6624
+  Train-Val gap:    -35204.6208
+  Train trend (last 20%): -3.384941
+  Val trend (last 20%):   -0.262634
+  ℹ️  Val loss < train loss (possible underfitting or noisy validation)
+  📈 Validation loss still decreasing
+
+Z-Component GP:
+  Final train loss: 55055.5194
+  Final val loss:   21626.6911
+  Train-Val gap:    -33428.8283
+  Train trend (last 20%): -3.288905
+  Val trend (last 20%):   -0.450672
+  ℹ️  Val loss < train loss (possible underfitting or noisy validation)
+  📈 Validation loss still decreasing
+
+==================================================
+EVALUATION RESULTS
+==================================================
+Overall RMSE: 0.039665
+Overall MAE:  0.013373
+
+Per-dimension results:
+x-error - RMSE: 0.048442, MAE: 0.015425
+y-error - RMSE: 0.036014, MAE: 0.014952
+z-error - RMSE: 0.032808, MAE: 0.009742
+
+Mean prediction uncertainty: 0.005306
+Std of prediction uncertainty: 0.003402
+
+Training completed! Final model performance:
+Overall RMSE: 0.039665
